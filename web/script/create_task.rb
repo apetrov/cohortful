@@ -1,3 +1,3 @@
 BackgroundJob.connection
-BackgroundJob.create(queue: 'default', payload: { name: 'hello'})
-puts "Created background job in 'default' queue with payload { name: 'hello' }"
+BackgroundJob.create(queue: 'inference', payload: { name: 'hello'})
+puts "Created background job in 'inference' queue with payload { name: 'hello' }"

@@ -1030,6 +1030,7 @@ dependencies = [
     { name = "pyarrow" },
     { name = "pymc" },
     { name = "pytest" },
+    { name = "pyyaml" },
     { name = "requests" },
     { name = "tqdm" },
 ]
@@ -1044,6 +1045,7 @@ requires-dist = [
     { name = "pyarrow", specifier = ">=22.0.0" },
     { name = "pymc", specifier = ">=5.26.1" },
     { name = "pytest", specifier = ">=9.0.1" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "requests", specifier = ">=2.32.5" },
     { name = "tqdm", specifier = ">=4.67.1" },
 ]
