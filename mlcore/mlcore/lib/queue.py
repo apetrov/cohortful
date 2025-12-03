@@ -59,6 +59,10 @@ class PostgresQueue:
         self.max_attempts = max_attempts
         self.context = QueueContext(conn, queue, self.channel)
 
+    def __iter__(self):
+        while True:
+            yield self.pop()
+
     @property
     def channel(self):
         return f"job_{self.queue}"
@@ -95,7 +99,7 @@ class PostgresQueue:
 
     def _drop(self, task_id):
         self.conn.execute(
-            "DELETE FROM tasks WHERE id = %s", (task_id,)
+            "DELETE FROM background_jobs WHERE id = %s", (task_id,)
         )
 
 class InMemoryQueue:
@@ -104,6 +108,14 @@ class InMemoryQueue:
         self.id_seq = 0
 
     def listen(self): pass
+
+    def __iter__(self):
+        while True:
+            task = self.pop()
+            if task:
+                yield task
+            else:
+                time.sleep(1)
 
     def pop(self):
         if self.tasks:
