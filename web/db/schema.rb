@@ -17,8 +17,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_091859) do
   create_table "background_jobs", force: :cascade do |t|
     t.string "queue"
     t.jsonb "payload"
-    t.string "status"
-    t.integer "attempts"
+    t.string "status", default: "pending"
+    t.integer "attempts", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
