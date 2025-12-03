@@ -60,6 +60,7 @@ class PostgresQueue:
         self.context = QueueContext(conn, queue, self.channel)
 
     def __iter__(self):
+        self.listen()
         while True:
             yield self.pop()
 
@@ -121,10 +122,6 @@ class InMemoryQueue:
         if self.tasks:
             return self.tasks.pop(0)
         return None
-
-    def put(self, payload):
-        self.tasks.append(Task(self.id_seq, payload))
-        self.id_seq += 1
 
     def success(self, task):
         print(f"Task {task.id} completed successfully.")

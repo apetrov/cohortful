@@ -1,9 +1,10 @@
 import psycopg
+import duckdb
 import yaml
 
 class App:
     vault: object = None
-    db: object = None
+    pg: object = None
 
 
 class VaultFile:
@@ -17,5 +18,6 @@ class VaultFile:
 def create_app():
     app = App()
     app.vault = VaultFile('env.yml')
-    app.db =  psycopg.connect(app.vault.get('postgres_url'))
+    app.pg =  psycopg.connect(app.vault.get('postgres_url'))
+    app.duck = duckdb.connect(database=':memory:')
     return app

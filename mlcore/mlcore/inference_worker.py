@@ -16,9 +16,7 @@ df_agg = pd.DataFrame({
 
 def main():
     app = create_app()
-    queue = PostgresQueue(app.db, 'inference')
-    queue.listen()
-
+    queue = PostgresQueue(app.pg, 'inference')
     for task in queue:
         print(f"Processing task {task.id} with payload: {json.dumps(task.payload)}")
         model = CohortARPUModel()
