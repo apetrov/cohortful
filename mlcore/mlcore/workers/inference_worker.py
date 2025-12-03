@@ -14,14 +14,28 @@ df_agg = pd.DataFrame({
     'revenue_sd': [0.48, 0.46, 0.55, 0.50, 0.20],
 })
 
+def process_task(task, queue):
+    print(f"Processing task {task.id} with payload: {json.dumps(task.payload)}")
+    try:
+        model = CohortARPUModel()
+        model.fit(df_agg)
+        if 'webhook_url' in task.payload:
+            requests.post(
+                task.payload['webhook_url'],
+                json={'status': 'completed', 'task_id': task.id, 'payload': task.payload}
+            )
+        queue.success(task)
+        return True
+    except Exception as e:
+        queue.fail(task)
+        return False
+
+
 def main():
     app = create_app()
     queue = PostgresQueue(app.pg, 'inference')
     for task in queue:
-        print(f"Processing task {task.id} with payload: {json.dumps(task.payload)}")
-        model = CohortARPUModel()
-        model.fit(df_agg)
-        queue.success(task)
+        process_task(task, queue)
 
 if __name__ == '__main__':
     main()
