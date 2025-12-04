@@ -35,29 +35,11 @@
     <meta name="msapplication-TileImage" content="assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!-- Vendors styles-->
-    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.4.3/dist/css/coreui.min.css" rel="stylesheet" integrity="sha384-oMIIhJL1T5s+PxJr6+Qb0pO1IRFB6OGMM+J57UBT3UQKxSVsb++MkXpu9cLqaJxu" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.4.3/dist/js/coreui.bundle.min.js" integrity="sha384-SWhFOmxmv1pfTLKVBW7q8uossvuaWNeQFdmaWi6xdldiUjyqG9F6V2R2BOC8gkxx" crossorigin="anonymous"></script>
-
+    <%= tag.link rel: "stylesheet", href: "/css/coreui.min.css" %>
+    <%= tag.link rel: "stylesheet", href: "https://unpkg.com/@coreui/icons@3.0.1/css/free.min.css" %>
+    <%= tag.script src: "/js/coreui.bundle.min.js" %>
   </head>
-  <body><script id="__bs_script__">//<![CDATA[
-  (function() {
-    try {
-      var script = document.createElement('script');
-      if ('async') {
-        script.async = true;
-      }
-      script.src = '/browser-sync/browser-sync-client.js?v=3.0.4'.replace("HOST", location.hostname);
-      if (document.body) {
-        document.body.appendChild(script);
-      } else if (document.head) {
-        document.head.appendChild(script);
-      }
-    } catch (e) {
-      console.error("Browsersync: could not append script tag", e);
-    }
-  })()
-//]]></script>
-
+  <body>
     <div class="bg-body-tertiary min-vh-100 d-flex flex-row align-items-center">
       <div class="container">
         <div class="row justify-content-center">
@@ -68,15 +50,13 @@
                   <h1>Login</h1>
                   <p class="text-body-secondary">Sign In to your account</p>
                   <div class="input-group mb-3"><span class="input-group-text">
-                      <svg class="icon">
-                        <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-user"></use>
-                      </svg></span>
+                      <i class="icon cil-3d"></i>
+                      </span>
                     <input class="form-control" type="text" placeholder="Username">
                   </div>
                   <div class="input-group mb-4"><span class="input-group-text">
-                      <svg class="icon">
-                        <use xlink:href="node_modules/@coreui/icons/sprites/free.svg#cil-lock-locked"></use>
-                      </svg></span>
+                      <i class="icon cil-3d"></i>
+                      </span>
                     <input class="form-control" type="password" placeholder="Password">
                   </div>
                   <div class="row">
@@ -104,19 +84,17 @@
       </div>
     </div>
     <!-- CoreUI and necessary plugins-->
-    <script src="node_modules/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
-    <script src="node_modules/simplebar/dist/simplebar.min.js"></script>
     <script>
       const header = document.querySelector('header.header');
-      
+
       document.addEventListener('scroll', () => {
         if (header) {
           header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
         }
       });
-      
+
     </script>
-    <script> 
+    <script>
     </script>
   </body>
 </html>
