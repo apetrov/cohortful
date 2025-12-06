@@ -14,9 +14,15 @@ df_agg = pd.DataFrame({
     'revenue_sd': [0.48, 0.46, 0.55, 0.50, 0.20],
 })
 
-def process_task(task, queue):
+def process_task(app, task, queue):
     print(f"Processing task {task.id} with payload: {json.dumps(task.payload)}")
     try:
+        df_agg = app.duck.execute(
+            f"""
+            SELECT *
+            FROM read_parquet('{task.payload['url']}')
+            """
+        ).df()
         model = CohortARPUModel()
         model.fit(df_agg)
         if 'webhook_url' in task.payload:
@@ -35,7 +41,7 @@ def main():
     app = create_app()
     queue = PostgresQueue(app.pg, 'inference')
     for task in queue:
-        process_task(task, queue)
+        process_task(app, task, queue)
 
 if __name__ == '__main__':
     main()

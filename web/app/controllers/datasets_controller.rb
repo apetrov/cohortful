@@ -15,7 +15,14 @@ class DatasetsController < ApplicationController
         @dataset,
       )
       @dataset.save!
+
+      BackgroundJob.create(queue: 'inference', payload: {
+        dataset_id: @dataset.id,
+        url: @dataset.url,
+        webhook_url: "https://cohortful.com/webhooks/inference_complete/#{@dataset.id}",
+      })
     end
+
 
     redirect_to new_dataset_path, notice: "Dataset stored and ingested into DuckDB."
   end
