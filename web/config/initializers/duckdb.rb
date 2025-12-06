@@ -1,7 +1,11 @@
-DUCKDB = DuckDB::Database.open.connect  # ← This creates :memory: by default
-DUCKDB.execute(File.read(Rails.root.join("db", "duckdb.sql")))
+def create_datalake()
+  duckdb = DuckDB::Database.open.connect  # ← This creates :memory: by default
+  data_lake = Datalake.new(duckdb, 's3://cohortful-development-v1')
+  data_lake.init!
+  data_lake
+end
 
-# eval db/duckdb.sql
-
-
+Rails.application.config.to_prepare do
+  Datalake.instance = create_datalake()
+end
 

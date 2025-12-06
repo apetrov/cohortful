@@ -1,8 +1,8 @@
-class CreateDataset < Struct.new(:db, :bucket_name)
-  def call(id, file_path, feature_column, arpu, arpu_std, cohort_size)
-    url =  "s3://#{self.bucket_name}/datasets/#{id}.parquet"
-    url = "storage/datasets/#{id}.parquet" 
-    self.db.execute(<<-SQL
+class CreateDataset < Struct.new(:datalake)
+  def csv_to_parquet(id, file_path, feature_column, arpu, arpu_std, cohort_size)
+    #url =  "s3://#{self.bucket_name}/datasets/#{id}.parquet"
+    url = "#{datalake.prefix}/datasets/#{id}.parquet"
+    self.datalake.db.execute(<<-SQL
       COPY (
       SELECT
         #{feature_column} AS cohort,
