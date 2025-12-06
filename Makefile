@@ -93,7 +93,7 @@ bucket/%:
 				--region eu-central-1 --profile personal \
 				--create-bucket-configuration LocationConstraint=eu-central-1
 
-create-buckets: bucket/cohortful-development bucket/cohortful-production
+create-buckets: bucket/cohortful-development-v1 bucket/cohortful-production-v1
 
 
 duckdb.sql:
