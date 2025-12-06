@@ -1,1 +1,4 @@
 web/vendor/bundle/ruby/3.4.0
+mlcore/duckdb.sql
+web/db/duckdb.sql
+duckdb.sql
