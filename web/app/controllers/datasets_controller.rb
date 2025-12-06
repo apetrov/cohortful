@@ -11,12 +11,8 @@ class DatasetsController < ApplicationController
       @dataset.save!
       create_dataset = CreateDataset.new(Datalake.instance)
       @dataset.url = create_dataset.csv_to_parquet(
-        @dataset.id,
         file.path,
-        @dataset.feature_name,
-        @dataset.arpu_name,
-        @dataset.arpu_std_name,
-        @dataset.size_name
+        @dataset,
       )
       @dataset.save!
     end
