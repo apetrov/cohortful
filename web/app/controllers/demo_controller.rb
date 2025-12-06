@@ -1,6 +1,5 @@
 class DemoController < ApplicationController
-  # No layout for full CoreUI test page
-  layout false
+  layout 'application'
 
   def index
     # Just renders app/views/demo/index.html.erb
