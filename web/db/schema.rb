@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_03_091859) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_06_140107) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_03_091859) do
     t.jsonb "payload"
     t.string "status", default: "pending"
     t.integer "attempts", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "datasets", force: :cascade do |t|
+    t.string "url"
+    t.string "feature_name", null: false
+    t.string "arpu_name", null: false
+    t.string "arpu_std_name", null: false
+    t.string "size_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

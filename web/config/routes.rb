@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   # root "posts#index"
   #
   get '/demo', to: 'demo#index', as: :demo
+  resources :cohort_uploads, only: %i[new create]
+  resources :datasets, only: %i[new create]
 end

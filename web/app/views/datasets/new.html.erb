@@ -1,0 +1,52 @@
+<h1>New Dataset</h1>
+
+<% if flash[:notice] %>
+  <div class="flash notice"><%= flash[:notice] %></div>
+<% end %>
+
+<% if flash[:alert] %>
+  <div class="flash alert"><%= flash[:alert] %></div>
+<% end %>
+
+<% if @dataset.errors.any? %>
+  <div class="errors">
+    <p><strong><%= pluralize(@dataset.errors.count, "error") %> prevented this dataset from saving:</strong></p>
+    <ul>
+      <% @dataset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @dataset, url: datasets_path, local: true, html: { multipart: true } do |form| %>
+
+  <div>
+    <%= form.label :feature_name %><br>
+    <%= form.text_field :feature_name, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :arpu_name %><br>
+    <%= form.text_field :arpu_name, step: :any, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :arpu_std_name, "ARPU Std Dev" %><br>
+    <%= form.text_field :arpu_std_name, step: :any, required: true %>
+  </div>
+
+  <div>
+    <%= form.label :size_name %><br>
+    <%= form.text_field :size_name, required: true, min: 1 %>
+  </div>
+
+  <div>
+    <%= form.label :file, "CSV file" %><br>
+    <%= form.file_field :file, required: true, accept: ".csv,text/csv" %>
+  </div>
+
+  <div>
+    <%= form.submit "Create Dataset" %>
+  </div>
+<% end %>
